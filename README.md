@@ -1,6 +1,6 @@
-# rMATS-DVR
+# rMATS-DVR 
 
-Requirements:
+Requirements: <br>
 1) Install Python 2.6.x or Python 2.7.x and corresponding versions of NumPy and SciPy.<br>
 2) Install Java. <br>
 3) Add the Python and Java directories to the $PATH environment variable. <br>
@@ -9,7 +9,6 @@ Requirements:
 <br>
 <br>
 Installation:<br>
-<br>
 1) Unpack the downloaded tar ball. <br>
 	tar –zvxf rMATS-DVR-v1.0.tar.gz <br>
 2) Create soft links of particular java programs from Picard and GATK into rMATS-DVR folder. <br>
@@ -22,10 +21,7 @@ Installation:<br>
 <br>
 <br>
 Usage: <br>
-<br>
 1) Calibrate the bam files <br>
-
-
 usage: bam_calibration.py [-h] [--bam BAM] [--output OUTPUT] [--genome GENOME] [--known KNOWN] <br>
 Bam calibration for rMATS-DVR <br>
 <br>
