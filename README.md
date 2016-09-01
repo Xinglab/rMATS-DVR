@@ -10,10 +10,10 @@ Requirements: <br>
 <br>
 Installation:<br>
 1) Unpack the downloaded tar ball. <br>
-	tar –zvxf rMATS-DVR-v1.0.tar.gz <br>
+        tar –zvxf rMATS-DVR-v1.0.tar.gz <br>
 2) Create soft links of particular java programs from Picard and GATK into rMATS-DVR folder. <br>
 	cd rMATS-DVR-v1.0 <br>
-	ln -s  /path/to/picard/BuildBamIndex.jar ./ <br>
+    	ln -s  /path/to/picard/BuildBamIndex.jar ./ <br>
 	ln -s /path/to/picard/ReorderSam.jar ./ <br>
 	ln -s /path/to/picard/MarkDuplicates.jar ./ <br>
 	ln -s /path/to/picard/AddOrReplaceReadGroups.jar ./ <br>
