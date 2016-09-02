@@ -25,7 +25,7 @@
 ##1. Calibrate the bam files one by one.
 ###Usage
 ```bash
-bam_calibration.py --bam test.bam --output /Path/to/output/test_calibrated --genome hg19.fa --known dbSNP147.vcf
+bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg19.fa --known dbSNP147.vcf
 ```	
 	
 ###Required Parameters:
@@ -46,7 +46,7 @@ bam_calibration.py --bam test.bam --output /Path/to/output/test_calibrated --gen
 ###Usage
 
 ```bash
-rMATS-DVR.py --sample1 S1_rep1_calibrated.bam,S1_rep2_calibrated.bam,S1_rep3_calibrated.bam --sample2 			S2_rep1_calibrated.bam,S2_rep2_calibrated.bam,S2_rep3_calibrated.bam --label S1,S2 --genome hg19.fa --known dbSNP147.vcf --output /Path/to/output/S1_vs_S2 [--minQ 20] [--minDP 5] [--thread 1] [--diff 0.0001]
+rMATS-DVR.py --sample1 S1_rep1_calibrated.bam,S1_rep2_calibrated.bam,S1_rep3_calibrated.bam --sample2 S2_rep1_calibrated.bam,S2_rep2_calibrated.bam,S2_rep3_calibrated.bam --label S1,S2 --genome hg19.fa --known dbSNP147.vcf --output /Path/to/output/S1_vs_S2 [--minQ 20] [--minDP 5] [--thread 1] [--diff 0.0001]
 ```
 
 ###Required Parameters:
