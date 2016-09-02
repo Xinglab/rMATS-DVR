@@ -3,7 +3,7 @@
 ##Requirements
 
 1. Install Python 2.6.x or Python 2.7.x and corresponding versions of NumPy and SciPy. 
-2. nstall Java.
+2. Install Java.
 3. Add the Python and Java directories to the $PATH environment variable.
 4. Download Picard tool from https://broadinstitute.github.io/picard/.
 5. Download GATK from https://software.broadinstitute.org/gatk/download/. (version 3.0~3.6 have been tested)
