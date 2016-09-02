@@ -79,9 +79,9 @@ rMATS-DVR.py --sample1 S1_rep1_calibrated.bam,S1_rep2_calibrated.bam,S1_rep3_cal
 	
 	--gene           Gene annotation
 
-	--minQ MINQ      Minimum SNV quality [20]
+	--minQ           Minimum SNV quality [20]
 	
-	--minDP MINDP    Minimum mean read coverage of both samples [5]
+	--minDP          Minimum mean read coverage of both samples [5]
 	
 	--thread         Number of processors [1]
 	
