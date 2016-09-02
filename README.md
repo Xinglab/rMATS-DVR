@@ -25,6 +25,7 @@
 1. Genome and Known SNV are required: we highly recommend the users to use the genome sequence and dbSNP annotation from GTAK bundle, which can be downloaded from https://software.broadinstitute.org/gatk/download/bundle. 
 2. Known RNA editing sites: table delimited txt file with the first two columns are chromosome and coordinates. The other columns are ignored. Header is optional. Users can download the file from RADAR dababase (http://rnaedit.com/download/).
 3. Genome-wide repeat elements: RepeatMasker Genomic Datasets downloaded from http://www.repeatmasker.org/genomicDatasets/RMGenomicDatasets.html. For example: hg19.fa.out.gz
+4. Gene annotation in gtf format.
 
 ##1. Calibrate the bam files one by one.
 ###Usage
