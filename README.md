@@ -71,7 +71,14 @@ rMATS-DVR.py --sample1 S1_rep1_calibrated.bam,S1_rep2_calibrated.bam,S1_rep3_cal
 
 	--known          Known SNVs in vcf format
 	
-###Optional Parameters:	
+###Optional Parameters:
+
+	--editing        Known RNA editing sites
+	
+	--repeat         Repeat elements annotation
+	
+	--gene           Gene annotation
+
 	--minQ MINQ      Minimum SNV quality [20]
 	
 	--minDP MINDP    Minimum mean read coverage of both samples [5]
@@ -79,4 +86,5 @@ rMATS-DVR.py --sample1 S1_rep1_calibrated.bam,S1_rep2_calibrated.bam,S1_rep3_cal
 	--thread         Number of processors [1]
 	
 	--diff           Required level difference between the two samples [0.0001]
+	
 
