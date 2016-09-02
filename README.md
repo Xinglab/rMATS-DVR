@@ -65,7 +65,7 @@ rMATS-DVR.py --sample1 S1_rep1_calibrated.bam,S1_rep2_calibrated.bam,S1_rep3_cal
 
 	--known          Known SNVs in vcf format
 	
-###Required Parameters:	
+###Optional Parameters:	
 	--minQ MINQ      Minimum SNV quality [20]
 	
 	--minDP MINDP    Minimum mean read coverage of both samples [5]
