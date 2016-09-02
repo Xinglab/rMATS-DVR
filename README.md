@@ -25,10 +25,11 @@
 ##1. Calibrate the bam files one by one.
 ###Usage
 ```bash
-	bam_calibration.py [--bam test.bam] [--output /Path/to/output/test] [--genome hg19.fa] [--known dbSNP147.vcf]
-```bash
-
-
+bash bam_calibration.py [--bam test.bam] [--output /Path/to/output/test] [--genome hg19.fa] [--known dbSNP147.vcf]
+``	
+	
+	
+	
 ###Required Parameters:
 ------------
 	  -h, --help       show this help message and exit
