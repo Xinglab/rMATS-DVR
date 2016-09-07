@@ -85,13 +85,13 @@ bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg1
 
 ###Required Parameters:
 
-	-h, --help       Show this help message and exit
+	-h, --help              Show this help message and exit
 
-	--bam            Input bam file
+	--bam       <str>       Input bam file
 
-	--output         Path and prefix of the output file
+	--output    <str>       Path and prefix of the output file
 
-	--genome         Genome sequence in fasta format
+	--genome    <str>       Genome sequence in fasta format
 
-	--known          Known SNVs in vcf format
+	--known     <str>       Known SNVs in vcf format
 
