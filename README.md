@@ -69,9 +69,9 @@ rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --sample2 
 	
 	--diff      <float>     Required level difference between the two samples [0.0001]
 	
-	--merge		        Merge the counts of all replicates. Enable by default when there are less than 2 replicates in at least                         one sample groups.
+	--merge                 Merge the counts of all replicates. Enable by default when there are less than 2 replicates in at least one sample groups.
 	
-	--skipBamCalibration    Skip the step of calibrating bam files. Enable it when the input bam files have already been calibrated                         using bam_calibration.py (see below). Disable by default. 
+	--skipBamCalibration    Skip the step of calibrating bam files. Enable it when the input bam files have already been calibrated using bam_calibration.py (see below). Disable by default. 
 	
 ```bash
 bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg19.fa --known dbSNP147.vcf
