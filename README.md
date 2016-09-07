@@ -28,7 +28,7 @@
 4. Gene annotation: the gene annotaiton is in the UCSC format. We recommend users to download from UCSC. (http://hgdownload.soe.ucsc.edu/downloads.html#human). For example, one can download hg19 RefSeq gene from: http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz
 
 
-##1. Run rMATS-DVR in one step.
+##Run rMATS-DVR in one step.
 
 ###Usage
 In one step mode, rMATS-DVR will first calibrate bam files one by one and then calculate Differential Variants of RNA using all samples.
@@ -72,11 +72,17 @@ rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --sample2 
 	--merge                 Merge the counts of all replicates. Enable by default when there are less than 2 replicates in at least one sample groups.
 	
 	--skipBamCalibration    Skip the step of calibrating bam files. Enable it when the input bam files have already been calibrated using bam_calibration.py (see below). Disable by default. 
-	
+
+
+
+##Run rMATS-DVR in two steps.
+When there are a large number of replicates, one step mode, which calibrate bam files one by one,  may takes long time. In these cases, we recomend users to run bam calibration for all bam files parallely at the first step. Then the users can run rMATS-DVR.py with --skipBamCalibration.
+
+Bam calibration
 ```bash
 bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg19.fa --known dbSNP147.vcf
 ```	
-	
+
 ###Required Parameters:
 
 	-h, --help       Show this help message and exit
@@ -88,5 +94,4 @@ bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg1
 	--genome         Genome sequence in fasta format
 
 	--known          Known SNVs in vcf format
-
 
