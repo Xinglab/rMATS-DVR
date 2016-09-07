@@ -28,7 +28,6 @@
 4. Gene annotation: the gene annotaiton is in the UCSC format. We recommend users to download from UCSC. (http://hgdownload.soe.ucsc.edu/downloads.html#human). For example, one can download hg19 RefSeq gene from: http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz
 
 
-
 ##1. Run rMATS-DVR in one step.
 
 ###Usage
@@ -38,41 +37,42 @@ In one step mode, rMATS-DVR will first calibrate bam files one by one and then c
 rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --sample2 S2_rep_1.bam[,S2_rep_2.bam][,...,S2_rep_n.bam] --label S1,S2 --genome hg19.fa --known dbSNP147.vcf --output /Path/to/output/S1_vs_S2 [--editing RADAR2.txt] [--repeat repeats.txt] [--gene RefSeq.txt] [--minQ 20] [--minDP 5] [--thread 1] [--diff 0.0001] [--merge] [--skipBamCalibration]
 ```
 
-
-
 ###Required Parameters:
 
-	-h, --help       Show this help message and exit
+	-h, --help              Show this help message and exit
 
-	--sample1        Bam files of sample 1, replicates are separated by comma
+	--sample1   <str>       Bam files of sample 1, replicates are separated by comma
 	
-	--sample2        Bam files of sample 2, replicates are separated by comma
+	--sample2   <str>       Bam files of sample 2, replicates are separated by comma
 	
-	--label          Lable of sample 1 and sample 2, separated by comma, e.g. Sample1,Sample2
+	--label     <str>       Lable of sample 1 and sample 2, separated by comma, e.g. Sample1,Sample2
 
-	--output         Path and prefix of the output file
+	--output    <str>       Path and prefix of the output file
 
-	--genome         Genome sequence in fasta format
+	--genome    <str>       Genome sequence in fasta format
 
-	--known          Known SNVs in vcf format
+	--known     <str>       Known SNVs in vcf format
 	
 ###Optional Parameters:
 
-	--editing        Known RNA editing sites
+	--editing   <str>       Known RNA editing sites
 	
-	--repeat         Repeat elements annotation
+	--repeat    <str>       Repeat elements annotation
 	
-	--gene           Gene annotation
+	--gene      <str>       Gene annotation
 
-	--minQ           Minimum SNV quality [20]
+	--minQ      <int>       Minimum SNV quality [20]
 	
-	--minDP          Minimum mean read coverage of both samples [5]
+	--minDP     <int>       Minimum mean read coverage of both samples [5]
 	
-	--thread         Number of processors [1]
+	--thread    <int>       Number of processors [1]
 	
-	--diff           Required level difference between the two samples [0.0001]
+	--diff      <float>     Required level difference between the two samples [0.0001]
 	
-
+	--merge		        Merge the counts of all replicates. Enable by default when there are less than 2 replicates in at least                         one sample groups.
+	
+	--skipBamCalibration    Skip the step of calibrating bam files. Enable it when the input bam files have already been calibrated                         using bam_calibration.py (see below). Disable by default. 
+	
 ```bash
 bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg19.fa --known dbSNP147.vcf
 ```	
