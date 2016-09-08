@@ -100,3 +100,10 @@ bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg1
 
 	--known     <str>       Known SNVs in vcf format
 
+
+## rMATS-DVR results
+
+The rMATS-DVR result is the file "rMATS-DVR_Result.txt" under xxx_rMATS-DVR_results folder. In addition, the file "rMATS-DVR_Result_summary.txt" in the same folder summarizes the frequency of SNV types for all SNV and DVR respectively.
+
+
+
