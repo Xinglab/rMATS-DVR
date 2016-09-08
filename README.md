@@ -46,9 +46,9 @@ rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --sample2 
 
 	-h, --help              Show this help message and exit
 
-	--sample1   <str>       Bam files of sample 1, replicates are separated by comma
+	--sample1   <str>       Bam (or sam) files of sample 1, replicates are separated by comma
 	
-	--sample2   <str>       Bam files of sample 2, replicates are separated by comma
+	--sample2   <str>       Bam (or sam) files of sample 2, replicates are separated by comma
 	
 	--label     <str>       Lable of sample 1 and sample 2, separated by comma, e.g. Sample1,Sample2
 
@@ -92,7 +92,7 @@ bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg1
 
 	-h, --help              Show this help message and exit
 
-	--bam       <str>       Input bam file
+	--bam       <str>       Input bam (or sam) file
 
 	--output    <str>       Path and prefix of the output file
 
