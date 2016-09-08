@@ -74,7 +74,7 @@ if (not skip):
     for bam in samples:
         outbam=bam.split('/')[-1]
         logging.debug('Start calibrating '+outbam+'\n')
-        calbam=outbam.split('.')[:-1]+'_calibrated.bam'
+        calbam='.'.join(outbam.split('.')[:-1])+'_calibrated.bam'
         allsample.append(output+'_bam_calibration/'+calbam)
         com='python '+directory+'bam_calibration.py --bam '+bam+' --output '+output+'_bam_calibration/'+calbam+' --genome '+genome+' --known '+known
         os.system(com)
