@@ -10,16 +10,14 @@
 
 ##Installation:
 
-1. Unpack the downloaded tar ball. <br>
- - tar –zvxf rMATS-DVR-v1.0.tar.gz 
-2. Create soft links of particular java programs from Picard and GATK into rMATS-DVR folder.<br>
- - cd rMATS-DVR-v1.0 <br>
+1. Create soft links of particular java programs from Picard and GATK into rMATS-DVR folder.<br>
+ - cd rMATS-DVR <br>
  - ln -s  /path/to/picard/BuildBamIndex.jar ./ <br>
  - ln -s /path/to/picard/ReorderSam.jar ./ <br>
  - ln -s /path/to/picard/MarkDuplicates.jar ./ <br>
  - ln -s /path/to/picard/AddOrReplaceReadGroups.jar ./ <br>
  - ln -s /path/to/GATK/GenomeAnalysisTK.jar ./ <br>
-3. Then the source code can be directly called from Python. <br>
+2. Then the source code can be directly called from Python. <br>
 
 ##Required or optional external files:
 
@@ -101,9 +99,33 @@ python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --gen
 	--known     <str>       Known SNVs in vcf format
 
 
-## rMATS-DVR results
+## Output
 
-The rMATS-DVR result is the file "rMATS-DVR_Result.txt" under xxx_rMATS-DVR_results folder. In addition, the file "rMATS-DVR_Result_summary.txt" in the same folder summarizes the frequency of SNV types for all SNV and DVR respectively. All other files are temporary files.
+The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMATS-DVR_Result.txt" and "rMATS-DVR_Result_summary.txt".
+"rMATS-DVR_Result.txt" provides the SNV information, read counts, P value, FDR, gene location, and multiple annotations based on known databases. "rMATS-DVR_Result_summary.txt" summarizes the frequencies of all types of total SNVs and DVRs respectively. All other files are temporary files.
+
+###1. rMATS-DVR_Result.txt
+	 Ref_allele: reference allele.
+	 Alt_allele: alternative allele.
+	 Sample1_Alt: read counts of alternative allele in sample 1, replicates are separated by comma.
+	 Sample1_Ref: read counts of reference allele in sample 1, replicates are separated by comma.
+	 Sample2_Alt: read counts of alternative allele in sample 2, replicates are separated by comma.
+	 Sample2_Ref: read counts of reference allele in sample 2, replicates are separated by comma.
+	 Sample1_Alt_allele_fraction: fraction of alternative allele counts in sample 1, replicates are separated by comma.
+	 Sample2_Alt_allele_fraction: fraction of alternative allele counts in sample 2, replicates are separated by comma.
+	 Alt_allele_fraction_diff: average (Sample1_Alt_allele_fraction) - average (Sample2_Alt_allele_fraction).
+	 Ref_onSense: reference allele on sense strand.
+	 Alt_onSense: alternative allele on sense strand.
+	 Location: location of the SNV on gene.
+	 KnownSNV: rs ID of known SNV hit.
+	 KnownRNAediting: boolean variable to show whether the SNV has a hit in known RNA editing database.
+	 RepeatName: name of repeat element which covers the SNV.
+	 RepeatName: family of repeat element which covers the SNV.
+
+###2. rMATS-DVR_Result_summary.txt
+	 Type (Ref-Alt) on sense strand: type of SNP in the format of reference allele-alternative allele on sense strand.
+	 All SNV: frequency of each type of all called SNVs. 
+	 DVR (FDR<0.05): frequency of each type of all SNVs with FDR <0.05. 
 
 
 
