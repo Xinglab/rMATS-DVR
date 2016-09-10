@@ -127,5 +127,22 @@ The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMAT
 	 All SNV: frequency of each type of all called SNVs. 
 	 DVR (FDR<0.05): frequency of each type of all SNVs with FDR <0.05. 
 
+##Contacts
 
+Yi Xing yxing@ucla.edu
+
+Jinkai Wang jinkwang@ucla.edu
+
+If you found a bug or mistake in this project, we would like to know about it. Before you send us the bug report though, please check the following:
+
+Are you using the latest version? The bug you found may already have been fixed.
+Check that your input is in the correct format and you have selected the correct options.
+Please reduce your input to the smallest possible size that still produces the bug; we will need your input data to reproduce the problem, and the smaller you can make it, the easier it will be.
+##Copyright and License Information
+
+Copyright (C) 2016 University of California, Los Angeles (UCLA) Jinkai Wang and Yi Xing
+
+Authors: Jinkai Wang and Yi Xing
+
+This program is licensed with commercial restriction use license. Please see the attached LICENSE file for details.
 
