@@ -28,8 +28,6 @@ geneanno=args.gene
 lab1=args.label1
 lab2=args.label2
 
-#directory='/'.join(sys.argv[0].split('/')[:-1])
-
 complement={'A':'T', 'T':'A', 'C':'G', 'G':'C', '-':'-', ',':','}
 
 def rev_comp (seq):
@@ -112,49 +110,6 @@ for line in open(args.input):
     allsites[':'.join([chr, site])]=[ref, alt, qual]
 
 print 'All sites loaded'
-
-"""
-dbsnp={}
-for line in open(directory+'/resource/snp147.txt'):
-    line=line.rstrip('\n\r')
-    a=line.split('\t')
-    chrom=a[1]
-    site=a[3]
-    moltype=a[10]
-    classtype=a[11]
-    if (classtype!='single'):
-        continue
-    if (allsites.has_key(chrom+':'+site)):
-        strand=a[6]
-        rs=a[4]
-        alt=''
-        alleles=a[9].split('/')
-        if (len(alleles)!=2):
-            continue
-        allele1, allele2=alleles
-        allele1=allele1.upper()
-        allele2=allele2.upper()
-        if (len(allele1)!=1 or len(allele2)!=1):
-            continue
-        if (strand=='-'):
-            allele1=complement[allele1]
-            allele2=complement[allele2]
-        ref=a[8].upper()
-        if (allele1==ref):
-            alt=allele2
-        elif (allele2==ref):
-            alt=allele1
-        else:
-            #print ['error', ref, strand, a[9]]
-            continue
-        validation=a[12]
-        valid='FALSE'
-        if ( validation!='unknown' ):
-            valid='TRUE'
-        submiter=a[20]
-        function=a[15]
-        dbsnp[chrom+':'+site]=[rs, ref, alt, valid, moltype, validation, submiter, function]  # rs, ref, alt
-"""
 
 dbsnp={}
 for line in open(args.snp):

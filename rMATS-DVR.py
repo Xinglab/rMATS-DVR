@@ -47,8 +47,6 @@ print [ns1, ns2, merge]
 if (ns1<2 or ns2<2):
     merge=True
 
-print ['merge', merge]
-
 directory='/'.join(sys.argv[0].split('/')[:-1])
 if (directory!=''):
     directory+='/'
@@ -74,8 +72,8 @@ if (not skip):
     for bam in samples:
         outbam=bam.split('/')[-1]
         logging.debug('Start calibrating '+outbam+'\n')
-        calbam='.'.join(outbam.split('.')[:-1])+'_calibrated.bam'
-        allsample.append(output+'_bam_calibration/'+calbam)
+        calbam='.'.join(outbam.split('.')[:-1])
+        allsample.append(output+'_bam_calibration/'+calbam+'_recalibration.bam')
         com='python '+directory+'bam_calibration.py --bam '+bam+' --output '+output+'_bam_calibration/'+calbam+' --genome '+genome+' --known '+known
         os.system(com)
     allsample=' -I '.join(allsample)
