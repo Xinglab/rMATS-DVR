@@ -7,6 +7,7 @@
 3. Add the Python and Java directories to the $PATH environment variable.
 4. Download Picard tool from https://broadinstitute.github.io/picard/.
 5. Download GATK from https://software.broadinstitute.org/gatk/download/. (version 3.0~3.6 have been tested)
+6. Download SAMtools (http://www.htslib.org/) and add it to $PATH environment variable.
 
 ##Installation:
 
@@ -72,14 +73,17 @@ python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --s
 	
 	--diff      <float>     Required level difference between the two samples [0.0001]
 	
+	--ReadStranded          RNA-seq reads are Illumina strand-specific reads. Disable by default.
+	
+	--ReadPaired            RNA-seq reads are paired-end reads. Disable by default.
+	
 	--merge                 Merge the counts of all replicates. Enable by default when there are less than 2 replicates in at least one sample groups.
 	
 	--skipBamCalibration    Skip the step of calibrating bam files. Enable it when the input bam files have already been calibrated using bam_calibration.py (see below). Disable by default. 
-
-
+	
 
 ##Run rMATS-DVR in two steps.
-When there are a large number of replicates, one step mode, which calibrate bam files one by one,  may takes long time. In these cases, we recomend users to run bam calibration for all bam files parallely at the first step. Then the users can run rMATS-DVR.py with --skipBamCalibration.
+When there are a large number of replicates, one step mode, which calibrate bam files one by one,  may take long time. In these cases, we recomend users to run bam calibration for all bam files parallely at the first step. Then the users can run rMATS-DVR.py with --skipBamCalibration.
 
 Bam calibration
 ```bash
@@ -107,6 +111,7 @@ The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMAT
 ###1. rMATS-DVR_Result.txt
 	 Ref_allele: reference allele.
 	 Alt_allele: alternative allele.
+	 RNA-seqStrand: RNA strand from which the RNA-seq reads are originated. Only valid when --ReadStranded is applied in rMATS-DVR.
 	 Sample1_Alt: read counts of alternative allele in sample 1, replicates are separated by comma.
 	 Sample1_Ref: read counts of reference allele in sample 1, replicates are separated by comma.
 	 Sample2_Alt: read counts of alternative allele in sample 2, replicates are separated by comma.
