@@ -106,8 +106,8 @@ for line in open(args.input):
     a=line.split('\t')
     if (a[0]=='ID'):
         continue
-    chr, site, ref, alt, qual=a[0].split(':')
-    allsites[':'.join([chr, site])]=[ref, alt, qual]
+    chr, site, ref, alt, qual, strand=a[0].split(':')
+    allsites[':'.join([chr, site])]=[ref, alt, qual, strand]
 
 print 'All sites loaded'
 
@@ -173,14 +173,14 @@ for item in types:
     all_type[item]=0
     dvr_type[item]=0
 
-output.write('\t'.join(['Chrom', 'Site', 'Ref_allele', 'Alt_allele', 'SNV_quality', lab1+'_Alt', lab1+'_Ref', lab2+'_Alt', lab2+'_Ref', 'Pvalue','FDR', lab1+'_Alt_allele_fraction', lab2+'_Alt_allele_fraction', 'Alt_allele_fraction_diff',
+output.write('\t'.join(['Chrom', 'Site', 'Ref_allele', 'Alt_allele', 'RNA-seqStrand', 'SNV_quality', lab1+'_Alt', lab1+'_Ref', lab2+'_Alt', lab2+'_Ref', 'Pvalue','FDR', lab1+'_Alt_allele_fraction', lab2+'_Alt_allele_fraction', 'Alt_allele_fraction_diff',
             'Genename', 'strand', 'Ref_onSense', 'Alt_onSense', 'Location', 'KnownSNV', 'KnownRNAediting', 'RepeatName', 'RepeatFamily'])+'\n')
 for line in open(args.input):
     line=line.rstrip('\n\r')
     a=line.split('\t')
     if (a[0]=='ID'):     
         continue
-    chr, site, ref, alt, qual=a[0].split(':')
+    chr, site, ref, alt, qual, RNAstrand=a[0].split(':')
     site=int(site)-1
     ref=ref.upper()
     alt=alt.upper()
@@ -206,11 +206,11 @@ for line in open(args.input):
             txchr=gene[key][0]
             txstrand=gene[key][12]
             txgenename=gene[key][13]
-            if(gene[key][4][0]<=site<gene[key][8][-1]):
+            if(gene[key][4][0]<=site<gene[key][8][-1] and (RNAstrand=='.'  or RNAstrand==txstrand)):
                 if (not gene[key][13] in genename):
                     genename.append(gene[key][13])
                     strands.append(txstrand)
-            if (gene[key][4][0]<=site<gene[key][5][-1]):
+            if (gene[key][4][0]<=site<gene[key][5][-1] and (RNAstrand=='.'  or RNAstrand==txstrand)):
                 utr5start=gene[key][4]
                 utr5end=gene[key][5]
                 tx.append(key)
@@ -230,7 +230,7 @@ for line in open(args.input):
                         location='Intron'
                         break
                 loctype.append(location)
-            elif (gene[key][7][0]<=site<gene[key][8][-1]):
+            elif (gene[key][7][0]<=site<gene[key][8][-1] and (RNAstrand=='.'  or RNAstrand==txstrand)):
                 utr3start=gene[key][7]
                 utr3end=gene[key][8]
                 tx.append(key)
@@ -251,7 +251,7 @@ for line in open(args.input):
                         break
                 loctype.append(location)
     
-            elif (gene[key][10]<=site<gene[key][11]):
+            elif (gene[key][10]<=site<gene[key][11] and (RNAstrand=='.'  or RNAstrand==txstrand)):
                 cdsstart=gene[key][1]
                 cdsend=gene[key][2]
                 tx.append(key)
@@ -286,10 +286,10 @@ for line in open(args.input):
     
     ref_sense=''
     alt_sense=''
-    if (strand_sum=='+'):
+    if (strand_sum=='+' or RNAstrand=='+'):
         ref_sense=ref
         alt_sense=alt
-    elif (strand_sum=='-'):
+    elif (strand_sum=='-' or RNAstrand=='-'):
         ref_sense=complement[ref]
         alt_sense=complement[alt]
     else:
@@ -363,7 +363,9 @@ for line in open(args.input):
             if (fdr<0.05):
                 dvr_type[onetype]+=1
     
-    output.write('\t'.join([chr, str(site+1), ref, alt,  qual]+a[1:5]+a[7:]+[','.join(level1), ','.join(level2), str(diff), ','.join(genename), strand_sum, ref_sense, alt_sense, locsum, dbsnp_hit, radar2_hit, rephit[0], rephit[1]])+'\n')
+    if (strand_sum==''):
+        strand_sum=RNAstrand
+    output.write('\t'.join([chr, str(site+1), ref, alt, RNAstrand, qual]+a[1:5]+a[7:]+[','.join(level1), ','.join(level2), str(diff), ','.join(genename), strand_sum, ref_sense, alt_sense, locsum, dbsnp_hit, radar2_hit, rephit[0], rephit[1]])+'\n')
     
 output2=open(args.summary, 'w')
 output2.write('\t'.join(['Type (Ref-Alt) on sense strand', 'All SNV', 'DVR (FDR<0.05)'])+'\n')

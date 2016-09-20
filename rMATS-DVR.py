@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import argparse,os,sys,time,logging,datetime
+import argparse,os,sys,time,logging,datetime,re
 
 startTime = time.time()
 
@@ -20,6 +20,8 @@ parser.add_argument('--thread',  default='1', help='Number of processors [1]')
 parser.add_argument('--diff',  default='0.0001', help='Required level difference between the two samples [0.0001]')
 parser.add_argument('--merge', action='store_true', help='Merge the counts of all replicates. Enable by default when there are less than 2 replicates in at least one sample groups.')
 parser.add_argument('--skipBamCalibration', action='store_true', help='Skip the step of calibrating bam files. Disable by default.')
+parser.add_argument('--ReadStranded', action='store_true', help='RNA-seq reads are Illumina strand-specific reads. Disable by default.')
+parser.add_argument('--ReadPaired', action='store_true', help='RNA-seq reads are paired-end reads. Disable by default.')
 
 args = parser.parse_args()
 
@@ -38,11 +40,11 @@ diff=args.diff
 lab1,lab2=args.label.split(',')
 merge=args.merge
 skip=args.skipBamCalibration
+stranded=args.ReadStranded
+paired=args.ReadPaired
 
 ns1=len(sample1.split(','))
 ns2=len(sample2.split(','))
-
-print [ns1, ns2, merge]
 
 if (ns1<2 or ns2<2):
     merge=True
@@ -63,9 +65,11 @@ logging.basicConfig(level=logging.DEBUG,
 samples=sample1.split(',')+sample2.split(',')
 if (skip):
     allsample=' -I '.join(samples)
+    newsamples=samples
 else:
     allsample=[]
-
+    newsamples=[]
+    
 if (not skip):
     logging.debug('Calibrating bam files\n')
     os.system('mkdir -p '+output+'_bam_calibration')
@@ -74,13 +78,38 @@ if (not skip):
         logging.debug('Start calibrating '+outbam+'\n')
         calbam='.'.join(outbam.split('.')[:-1])
         allsample.append(output+'_bam_calibration/'+calbam+'_recalibration.bam')
+        newsamples.append(output+'_bam_calibration/'+calbam+'_recalibration.bam')
         com='python '+directory+'bam_calibration.py --bam '+bam+' --output '+output+'_bam_calibration/'+calbam+' --genome '+genome+' --known '+known
         os.system(com)
     allsample=' -I '.join(allsample)
     logging.debug('Bam calibrating completed\n')
 
 com1='java -jar '+directory+'GenomeAnalysisTK.jar -T UnifiedGenotyper -R '+genome+' -I '+allsample+'  --dbsnp '+known+' -o '+output+'.vcf -stand_call_conf 0 -stand_emit_conf 0 --genotyping_mode DISCOVERY'
-com2='python '+directory+'vcf_to_mats_input_GATK_UG.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP
+logging.debug('Running command 1: '+com1+'\n')
+os.system(com1)
+logging.debug('Command 1 completed!\n')
+
+allbam_sep=newsamples
+if (stranded and paired):
+    logging.debug('Separate two end of bam files and pileup\n')
+    allbam_sep=[]
+    os.system('mkdir -p '+output+'_bam_seperate\n')
+    for bam in newsamples:
+        outbam=bam.split('/')[-1]
+        bamname='.'.join(outbam.split('.')[:-1])
+        os.system('samtools view -f 64 -b '+bam+' > '+ output+'_bam_seperate/'+bamname+'_firstEnd.bam' )
+        os.system('samtools view -f 128 -b '+bam+' > '+ output+'_bam_seperate/'+bamname+'_secondEnd.bam' )
+        allbam_sep.append(output+'_bam_seperate/'+bamname+'_firstEnd.bam')
+        allbam_sep.append(output+'_bam_seperate/'+bamname+'_secondEnd.bam')
+if (stranded):
+    os.system('samtools mpileup -B -d 100000 -f '+genome+' -l '+output+'.vcf -q 30 -Q 17 -o '+output+'.pileup '+' '.join(allbam_sep))
+
+if (stranded and paired):
+    com2='python '+directory+'vcf_to_mats_input_GATK_UG_stranded.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP+' T '+output+'.pileup'
+elif(stranded and not paired):
+    com2='python '+directory+'vcf_to_mats_input_GATK_UG_stranded.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP+' F '+output+'.pileup'
+else:
+    com2='python '+directory+'vcf_to_mats_input_GATK_UG.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP
 if (not merge):
     com3='python '+directory+'rMATS_unpaired.py '+output+'.inc.txt '+output+'_rMATS-DVR_results '+thread+' '+diff
 else:
@@ -88,9 +117,7 @@ else:
 com4='python '+directory+'FDR.py '+output+'_rMATS-DVR_results/rMATS_Result_P.txt '+output+'_rMATS-DVR_results/rMATS_Result_FDR.txt'
 com5='python '+directory+'snv_annotation.py --input '+output+'_rMATS-DVR_results/rMATS_Result_FDR.txt --output '+output+'_rMATS-DVR_results/rMATS-DVR_Result.txt --summary '+output+'_rMATS-DVR_results/rMATS-DVR_Result_summary.txt --label1 '+lab1+' --label2 '+lab2+' --snp '+known+' --repeat '+repeatmask+' --editing '+knownediting+' --gene '+geneanno
 
-logging.debug('Running command 1: '+com1+'\n')
-os.system(com1)
-logging.debug('Command 1 completed!\n')
+
 logging.debug('Running command 2: '+com2+'\n')
 os.system(com2)
 logging.debug('Command 2 completed!\n')

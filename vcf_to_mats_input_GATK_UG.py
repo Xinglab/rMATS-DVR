@@ -28,7 +28,7 @@ for line in open(vcf_input):
             continue
         if (a[8]!='GT:AD:DP:GQ:PL'):
             continue
-        site=':'.join([chrom, pos, ref, alt, qual])
+        site=':'.join([chrom, pos, ref, alt, qual, '.'])
         ctr_refdp=[]
         ctr_altdp=[]
         hyp_refdp=[]
