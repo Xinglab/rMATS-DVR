@@ -182,7 +182,7 @@ def MLE_iteration_constrain(i1,i2,s1,s2,effective_inclusion_length,effective_ski
 			iter_cutoff=abs(previous_sum-current_sum)/abs(previous_sum);
 		previous_sum=current_sum;
 	#Debug;print('constrain');print(theta1);print(theta2);print(psi1);print(psi2);print(current_sum);print(likelihood_sum);
-	print('constrain');print(xopt);print(theta1);print(theta2);
+	#print('constrain');print(xopt);print(theta1);print(theta2);
 	return([current_sum,[psi1,psi2,beta_0,beta_1,var1,var2]]);
 
 def MLE_iteration(i1,i2,s1,s2,effective_inclusion_length,effective_skipping_length):
@@ -210,7 +210,7 @@ def MLE_iteration(i1,i2,s1,s2,effective_inclusion_length,effective_skipping_leng
 		previous_sum=current_sum;
 	if count>iter_maxrun:
 		return([current_sum,[psi1,psi2,0,0,var1,var2]]);
-	print('unconstrain');print(xopt);
+	#print('unconstrain');print(xopt);
 	return([current_sum,[psi1,psi2,beta_0,beta_1,var1,var2]]);
 
 #Random Sampling Function
