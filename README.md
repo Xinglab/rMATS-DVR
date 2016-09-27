@@ -20,7 +20,7 @@
  - ln -s /path/to/GATK/GenomeAnalysisTK.jar ./ <br>
 2. Then the source code can be directly called from Python. <br>
 
-##Required or optional external files:
+##Required and optional external files:
 
 All the external files based on human hg19 genome can be downloaded from http://www.mimg.ucla.edu/faculty/xing/public_data/rMATS-DVR/hg19_resource.tar.gz
 
