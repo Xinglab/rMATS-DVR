@@ -101,15 +101,15 @@ if (stranded and paired):
         os.system('samtools view -f 128 -b '+bam+' > '+ output+'_bam_seperate/'+bamname+'_secondEnd.bam' )
         allbam_sep.append(output+'_bam_seperate/'+bamname+'_firstEnd.bam')
         allbam_sep.append(output+'_bam_seperate/'+bamname+'_secondEnd.bam')
-if (stranded):
-    os.system('samtools mpileup -B -d 100000 -f '+genome+' -l '+output+'.vcf -q 30 -Q 17 -o '+output+'.pileup '+' '.join(allbam_sep))
+#if (stranded):
+os.system('samtools mpileup -B -d 100000 -f '+genome+' -l '+output+'.vcf -q 30 -Q 17 -o '+output+'.pileup '+' '.join(allbam_sep))
 
 if (stranded and paired):
-    com2='python '+directory+'vcf_to_mats_input_GATK_UG_stranded.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP+' T '+output+'.pileup'
+    com2='python '+directory+'vcf_to_mats_input.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP+' T '+output+'.pileup T'
 elif(stranded and not paired):
-    com2='python '+directory+'vcf_to_mats_input_GATK_UG_stranded.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP+' F '+output+'.pileup'
+    com2='python '+directory+'vcf_to_mats_input.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP+' F '+output+'.pileup T'
 else:
-    com2='python '+directory+'vcf_to_mats_input_GATK_UG.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP
+    com2='python '+directory+'vcf_to_mats_input.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP+' F '+output+'.pileup F'
 if (not merge):
     com3='python '+directory+'rMATS_unpaired.py '+output+'.inc.txt '+output+'_rMATS-DVR_results '+thread+' '+diff
 else:
