@@ -29,7 +29,7 @@ logging.basicConfig(level=logging.DEBUG,
                     filemode='w')
   
 # mark and index bam
-com1='java -Xmx4g -jar '+directory+'ReorderSam.jar INPUT='+bam+' OUTPUT='+label+'_reordered.bam R='+genome
+com1='java -Xmx4g -jar '+directory+'ReorderSam.jar INPUT='+bam+' OUTPUT='+label+'_reordered.bam S=true R='+genome
 com2='java -Xmx4g -jar '+directory+'MarkDuplicates.jar INPUT='+label+'_reordered.bam OUTPUT='+label+'_dedup.bam CREATE_INDEX=true VALIDATION_STRINGENCY=SILENT METRICS_FILE='+label+'_metrics.txt'
 com3='java -Xmx4g -jar '+directory+'AddOrReplaceReadGroups.jar INPUT='+label+'_dedup.bam OUTPUT='+label+'_addrg.bam RGID='+label+' RGLB='+label+' RGPL=ILLUMINA RGPU=lane1 RGSM='+label
 com4='java -Xmx4g -jar '+directory+'BuildBamIndex.jar INPUT='+label+'_addrg.bam'
