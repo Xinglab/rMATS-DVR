@@ -5,7 +5,7 @@
 1. Install Python 2.6.x or Python 2.7.x and corresponding versions of NumPy and SciPy. 
 2. Install Java.
 3. Add the Python and Java directories to the $PATH environment variable.
-4. Download Picard tool from https://broadinstitute.github.io/picard/.  (version 1.77~1.86 has been tested)
+4. Download Picard tool from https://broadinstitute.github.io/picard/.  (version 1.77~1.86 has been tested, version 2.6 or later is not compatible)
 5. Download GATK from https://software.broadinstitute.org/gatk/download/. (version 3.0~3.6 have been tested)
 6. Download SAMtools (http://www.htslib.org/) and add it to $PATH environment variable.
 
@@ -89,10 +89,10 @@ When there are a large number of replicates, one step mode, which calibrate bam 
 
 Bam calibration
 ```bash
-python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg19.fa --known dbSNP147.vcf
+python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg19.fa --known dbSNP147.vcf [--KeepTemp]
 ```	
 
-###Required Parameters:
+###Parameters:
 
 	-h, --help              Show this help message and exit
 
@@ -103,6 +103,8 @@ python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --gen
 	--genome    <str>       Genome sequence in fasta format
 
 	--known     <str>       Known SNVs in vcf format
+	
+	--KeepTemp              [Optional] Keep the temporary files. Disable by default.
 
 
 ## Output
