@@ -9,6 +9,7 @@ parser.add_argument('--bam',help='Input bam file')
 parser.add_argument('--output',help='Path and prefix of the output file')
 parser.add_argument('--genome',help='genome sequence in fasta format')
 parser.add_argument('--known',help='Known SNVs in vcf format')
+parser.add_argument('--KeepTemp', action='store_true', help='Keep tempory files. Disable by default.')
 
 args = parser.parse_args()
 
@@ -16,6 +17,7 @@ bam=args.bam
 label=args.output
 genome=args.genome
 known=args.known
+keep=args.KeepTemp
 
 directory='/'.join(sys.argv[0].split('/')[:-1])
 if (directory!=''):
@@ -42,25 +44,38 @@ com7='java -Xmx4g -jar '+directory+'GenomeAnalysisTK.jar -T PrintReads -R '+geno
 
 logging.debug('Running command 1: '+com1+'\n')
 os.system(com1)
-logging.debug('Command 1 completed!\n')
+#logging.debug('Command 1 completed!\n')
 logging.debug('Running command 2: '+com1+'\n')
 os.system(com2)
-logging.debug('Command 2 completed!\n')
+if (not keep):
+    os.system('rm -f '+label+'_reordered.bam')
+#logging.debug('Command 2 completed!\n')
 logging.debug('Running command 3: '+com1+'\n')
 os.system(com3)
-logging.debug('Command 3 completed!\n')
+if (not keep):
+    os.system('rm -f '+label+'_dedup.bam')
+#logging.debug('Command 3 completed!\n')
 logging.debug('Running command 4: '+com1+'\n')
 os.system(com4)
-logging.debug('Command 4 completed!\n')
+#logging.debug('Command 4 completed!\n')
 logging.debug('Running command 5: '+com1+'\n')
 os.system(com5)
-logging.debug('Command 5 completed!\n')
+if (not keep):
+    os.system('rm -f '+label+'_addrg.bam')
+#logging.debug('Command 5 completed!\n')
 logging.debug('Running command 6: '+com1+'\n')
 os.system(com6)
-logging.debug('Command 6 completed!\n')
+#logging.debug('Command 6 completed!\n')
 logging.debug('Running command 7: '+com1+'\n')
 os.system(com7)
-logging.debug('Command 7 completed!\n')
+if (not keep):
+    os.system('rm -f '+label+'_split.bam')
+    os.system('rm -f '+label+'_addrg.bai')
+    os.system('rm -f '+label+'_recalibration_report.grp')
+    os.system('rm -f '+label+'_split.bai')
+    os.system('rm -f '+label+'_metrics.txt')
+    
+#logging.debug('Command 7 completed!\n')
 
 logging.debug("Program ended")
 currentTime = time.time()

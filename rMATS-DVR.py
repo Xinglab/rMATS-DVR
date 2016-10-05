@@ -22,6 +22,7 @@ parser.add_argument('--merge', action='store_true', help='Merge the counts of al
 parser.add_argument('--skipBamCalibration', action='store_true', help='Skip the step of calibrating bam files. Disable by default.')
 parser.add_argument('--ReadStranded', action='store_true', help='RNA-seq reads are Illumina strand-specific reads. Disable by default.')
 parser.add_argument('--ReadPaired', action='store_true', help='RNA-seq reads are paired-end reads. Disable by default.')
+parser.add_argument('--KeepTemp', action='store_true', help='Keep tempory files. Disable by default.')
 
 args = parser.parse_args()
 
@@ -42,6 +43,7 @@ merge=args.merge
 skip=args.skipBamCalibration
 stranded=args.ReadStranded
 paired=args.ReadPaired
+keep=args.KeepTemp
 
 ns1=len(sample1.split(','))
 ns2=len(sample2.split(','))
@@ -79,15 +81,18 @@ if (not skip):
         calbam='.'.join(outbam.split('.')[:-1])
         allsample.append(output+'_bam_calibration/'+calbam+'_recalibration.bam')
         newsamples.append(output+'_bam_calibration/'+calbam+'_recalibration.bam')
-        com='python '+directory+'bam_calibration.py --bam '+bam+' --output '+output+'_bam_calibration/'+calbam+' --genome '+genome+' --known '+known
+        if (keep):
+            com='python '+directory+'bam_calibration.py --bam '+bam+' --output '+output+'_bam_calibration/'+calbam+' --genome '+genome+' --known '+known+' --KeepTemp'
+        else:
+            com='python '+directory+'bam_calibration.py --bam '+bam+' --output '+output+'_bam_calibration/'+calbam+' --genome '+genome+' --known '+known
         os.system(com)
     allsample=' -I '.join(allsample)
-    logging.debug('Bam calibrating completed\n')
+    #logging.debug('Bam calibrating completed\n')
 
 com1='java -jar '+directory+'GenomeAnalysisTK.jar -T UnifiedGenotyper -R '+genome+' -I '+allsample+'  --dbsnp '+known+' -o '+output+'.vcf -stand_call_conf 0 -stand_emit_conf 0 --genotyping_mode DISCOVERY'
 logging.debug('Running command 1: '+com1+'\n')
 os.system(com1)
-logging.debug('Command 1 completed!\n')
+#logging.debug('Command 1 completed!\n')
 
 allbam_sep=newsamples
 if (stranded and paired):
@@ -103,6 +108,9 @@ if (stranded and paired):
         allbam_sep.append(output+'_bam_seperate/'+bamname+'_secondEnd.bam')
 #if (stranded):
 os.system('samtools mpileup -B -d 100000 -f '+genome+' -l '+output+'.vcf -q 30 -Q 17 -o '+output+'.pileup '+' '.join(allbam_sep))
+if (not keep):
+    os.system('rm -rf '+output+'_bam_calibration')
+    os.system('rm -rf '+output+'_bam_seperate')
 
 if (stranded and paired):
     com2='python '+directory+'vcf_to_mats_input.py '+output+'.vcf '+output+'.inc.txt '+sample1+' '+sample2+' '+minQ+' '+minDP+' T '+output+'.pileup T'
@@ -120,17 +128,17 @@ com5='python '+directory+'snv_annotation.py --input '+output+'_rMATS-DVR_results
 
 logging.debug('Running command 2: '+com2+'\n')
 os.system(com2)
-logging.debug('Command 2 completed!\n')
+#logging.debug('Command 2 completed!\n')
 logging.debug('Running command 3: '+com3+'\n')
 os.system('mkdir -p '+output+'_rMATS-DVR_results')
 os.system(com3)
-logging.debug('Command 3 completed!\n')
+#logging.debug('Command 3 completed!\n')
 logging.debug('Running command 4: '+com4+'\n')
 os.system(com4)
-logging.debug('Command 4 completed!\n')
+#logging.debug('Command 4 completed!\n')
 logging.debug('Running command 5: '+com5+'\n')
 os.system(com5)
-logging.debug('Command 5 completed!\n')
+#logging.debug('Command 5 completed!\n')
 
 logging.debug("Program ended")
 currentTime = time.time()
