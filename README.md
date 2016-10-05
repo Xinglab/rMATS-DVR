@@ -81,7 +81,7 @@ python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --s
 	
 	--skipBamCalibration    Skip the step of calibrating bam files. Enable it when the input bam files have already been calibrated using bam_calibration.py (see below). Disable by default. 
 	
-	--KeepTemp		Keep the temporary files. Disable by default.
+	--KeepTemp              Keep the temporary files. Disable by default.
 	
 
 ##Run rMATS-DVR in two steps.
