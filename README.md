@@ -3,20 +3,17 @@
 ##Requirements
 
 1. Install Python 2.6.x or Python 2.7.x and corresponding versions of NumPy and SciPy. 
-2. Install Java.
+2. Install Java (version 1.8 or later).
 3. Add the Python and Java directories to the $PATH environment variable.
-4. Download Picard tool from https://broadinstitute.github.io/picard/.  (version 1.77~1.86 has been tested, version 2.6 or later is not compatible)
+4. Download Picard v2.6.0 from https://github.com/broadinstitute/picard/releases/tag/2.6.0.
 5. Download GATK from https://software.broadinstitute.org/gatk/download/. (version 3.0~3.6 have been tested)
-6. Download SAMtools (http://www.htslib.org/) and add it to $PATH environment variable.
+6. Download SAMtools (http://www.htslib.org/) and add it to $PATH environment variable. (v1.3.1 has been tested)
 
 ##Installation:
 
-1. Create soft links of particular java programs from Picard and GATK into rMATS-DVR folder.<br>
+1. Create soft links of Picard and GATK into rMATS-DVR folder.<br>
  - cd rMATS-DVR <br>
- - ln -s  /path/to/picard/BuildBamIndex.jar ./ <br>
- - ln -s /path/to/picard/ReorderSam.jar ./ <br>
- - ln -s /path/to/picard/MarkDuplicates.jar ./ <br>
- - ln -s /path/to/picard/AddOrReplaceReadGroups.jar ./ <br>
+ - ln -s /path/to/picard/picard.jar ./ <br>
  - ln -s /path/to/GATK/GenomeAnalysisTK.jar ./ <br>
 2. Then the source code can be directly called from Python. <br>
 
@@ -26,7 +23,7 @@ All the external files based on human hg19 genome can be downloaded from http://
 
 Alternatively, users can also prepare the external files under the following instructions:
 
-1. Genome and Known SNV (required): we highly recommend the users use the genome sequence (together with a dictionary file such as "ucsc.hg19.dict") and dbSNP annotation from GTAK bundle, which can be downloaded from https://software.broadinstitute.org/gatk/download/bundle. 
+1. Genome and Known SNV (required): we highly recommend the users use the genome sequence (together with a dictionary file such as "ucsc.hg19.dict" and index file such as "ucsc.hg19.fasta.fai") and dbSNP annotation from GTAK bundle, which can be downloaded from https://software.broadinstitute.org/gatk/download/bundle. 
 2. Known RNA editing sites (optional): table delimited txt file with the first two columns are chromosome and coordinates. The other columns are ignored. Header is optional. Users can download the file from RADAR dababase (http://rnaedit.com/download/).
 3. Genome-wide repeat elements (optional): RepeatMasker Genomic Datasets downloaded from http://www.repeatmasker.org/genomicDatasets/RMGenomicDatasets.html. For example: hg19.fa.out.gz
 4. Gene annotation: the gene annotaiton is in the UCSC format (optional). We recommend users to download from UCSC. (http://hgdownload.soe.ucsc.edu/downloads.html#human). For example, one can download hg19 RefSeq gene from: http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz
