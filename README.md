@@ -6,8 +6,8 @@
 2. Install Java (version 1.8 or later).
 3. Add the Python and Java directories to the $PATH environment variable.
 4. Download Picard v2.6.0 from https://github.com/broadinstitute/picard/releases/tag/2.6.0.
-5. Download GATK from https://software.broadinstitute.org/gatk/download/. (version 3.0~3.6 have been tested)
-6. Download SAMtools (https://github.com/samtools/samtools/releases/tag/1.3.1) and add it to $PATH environment variable. (v1.3.1 has been tested)
+5. Download GATK v3.6 from https://software.broadinstitute.org/gatk/download/.
+6. Download SAMtools v1.3.1 (https://github.com/samtools/samtools/releases/tag/1.3.1) and add it to $PATH environment variable.
 
 ##Installation:
 
