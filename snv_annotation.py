@@ -169,9 +169,15 @@ output=open(args.output, 'w')
 types=['A-C', 'A-G', 'A-T', 'C-A', 'C-G', 'C-T', 'G-A', 'G-C', 'G-T', 'T-A', 'T-C', 'T-G']
 all_type={}
 dvr_type={}
+snp_type={}
+editing_type={}
+novel_type={}
 for item in types:
     all_type[item]=0
     dvr_type[item]=0
+    snp_type[item]=0
+    editing_type[item]=0
+    novel_type[item]=0
 
 output.write('\t'.join(['Chrom', 'Site', 'Ref_allele', 'Alt_allele', 'RNA-seqStrand', 'SNV_quality', lab1+'_Alt', lab1+'_Ref', lab2+'_Alt', lab2+'_Ref', 'Pvalue','FDR', lab1+'_Alt_allele_fraction', lab2+'_Alt_allele_fraction', 'Alt_allele_fraction_diff',
             'Genename', 'strand', 'Ref_onSense', 'Alt_onSense', 'Location', 'KnownSNV', 'KnownRNAediting', 'RepeatName', 'RepeatFamily'])+'\n')
@@ -362,14 +368,20 @@ for line in open(args.input):
             #fdr=float(a[8])
             if (fdr<0.05):
                 dvr_type[onetype]+=1
+                if (radar2_hit=='TRUE'):
+                        editing_type[onetype]+=1
+                elif (dbsnp_hit!=''):
+                        snp_type[onetype]+=1
+                else:
+                        novel_type[onetype]+=1
     
     if (strand_sum==''):
         strand_sum=RNAstrand
     output.write('\t'.join([chr, str(site+1), ref, alt, RNAstrand, qual]+a[1:5]+a[7:]+[','.join(level1), ','.join(level2), str(diff), ','.join(genename), strand_sum, ref_sense, alt_sense, locsum, dbsnp_hit, radar2_hit, rephit[0], rephit[1]])+'\n')
     
 output2=open(args.summary, 'w')
-output2.write('\t'.join(['Type (Ref-Alt) on sense strand', 'All SNV', 'DVR (FDR<0.05)'])+'\n')
+output2.write('\t'.join(['Type (Ref-Alt) on sense strand', 'All variants', 'All DVRs (FDR<0.05)', 'SNP DVRs', 'RNA editing DVRs', 'Novel DVRs'])+'\n')
 for onetype in types:
-    output2.write('\t'.join([onetype, str(all_type[onetype]), str(dvr_type[onetype])])+'\n')
+    output2.write('\t'.join([onetype, str(all_type[onetype]), str(dvr_type[onetype]), str(snp_type[onetype]), str(editing_type[onetype]), str(novel_type[onetype])])+'\n')
 
 
