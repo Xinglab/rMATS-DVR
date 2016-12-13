@@ -118,7 +118,7 @@ The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMAT
 	 Ref_allele: reference allele.
 	 Alt_allele: alternative allele.
 	 RNA-seqStrand: RNA strand from which the RNA-seq reads are originated. Only valid when --ReadStranded is applied in rMATS-DVR.
-	 SNV_quality: GATK reported Phred-scaled quality score of variant. 
+	 Variant_quality: GATK reported Phred-scaled quality score of variant. 
 	 Sample1_Alt: read counts of alternative allele in sample 1, replicates are separated by comma.
 	 Sample1_Ref: read counts of reference allele in sample 1, replicates are separated by comma.
 	 Sample2_Alt: read counts of alternative allele in sample 2, replicates are separated by comma.
