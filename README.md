@@ -102,7 +102,7 @@ python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --gen
 
 	--genome    <str>       Genome sequence in fasta format
 
-	--known     <str>       Known SNVs in vcf format
+	--known     <str>       Known SNPs in vcf format
 	
 	--KeepTemp              [Optional] Keep the temporary files. Disable by default.
 
@@ -113,28 +113,35 @@ The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMAT
 "rMATS-DVR_Result.txt" provides the SNV information, read counts, P value, FDR, gene location, and multiple annotations based on known databases. "rMATS-DVR_Result_summary.txt" summarizes the frequencies of all types of total SNVs and DVRs respectively. All other files are temporary files.
 
 ###1. rMATS-DVR_Result.txt
+	 Chroms: Chromosome of variant.
+	 Site: 1-based coordinates of variant.
 	 Ref_allele: reference allele.
 	 Alt_allele: alternative allele.
 	 RNA-seqStrand: RNA strand from which the RNA-seq reads are originated. Only valid when --ReadStranded is applied in rMATS-DVR.
+	 SNV_quality: GATK reported Phred-scaled quality score of variant. 
 	 Sample1_Alt: read counts of alternative allele in sample 1, replicates are separated by comma.
 	 Sample1_Ref: read counts of reference allele in sample 1, replicates are separated by comma.
 	 Sample2_Alt: read counts of alternative allele in sample 2, replicates are separated by comma.
 	 Sample2_Ref: read counts of reference allele in sample 2, replicates are separated by comma.
+	 Pvalue: P value of differential allelic count ratios between two sample groups.
+	 FDR: Benjamini-Hochberg corrected FDR of the above P value.
 	 Sample1_Alt_allele_fraction: fraction of alternative allele counts in sample 1, replicates are separated by comma.
 	 Sample2_Alt_allele_fraction: fraction of alternative allele counts in sample 2, replicates are separated by comma.
 	 Alt_allele_fraction_diff: average (Sample1_Alt_allele_fraction) - average (Sample2_Alt_allele_fraction).
+	 Genename: name of the gene in which the variant is located.
+	 strand: strand of the gene.
 	 Ref_onSense: reference allele on sense strand.
 	 Alt_onSense: alternative allele on sense strand.
-	 Location: location of the SNV on gene.
-	 KnownSNV: rs ID of known SNV hit.
+	 Location: location of the variant on gene.
+	 KnownSNP: rs ID of known SNP (dbSNP) hit.
 	 KnownRNAediting: boolean variable to show whether the SNV has a hit in known RNA editing database.
-	 RepeatName: name of repeat element which covers the SNV.
-	 RepeatName: family of repeat element which covers the SNV.
+	 RepeatName: name of repeat element which covers the variant.
+	 RepeatName: family of repeat element which covers the variant.
 
 ###2. rMATS-DVR_Result_summary.txt
-	 Type (Ref-Alt) on sense strand: type of SNP in the format of reference allele-alternative allele on sense strand.
-	 All SNV: frequency of each type of all called SNVs. 
-	 DVR (FDR<0.05): frequency of each type of all SNVs with FDR <0.05. 
+	 Type (Ref-Alt) on sense strand: type of variants in the format of reference allele-alternative allele on sense strand.
+	 All Variants: frequency of each type of all called variants. 
+	 All DVRs (FDR<0.05): frequency of each type of all variants with FDR < 0.05.
 
 ##Contacts
 
