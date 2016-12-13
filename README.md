@@ -110,7 +110,7 @@ python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --gen
 ## Output
 
 The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMATS-DVR_Result.txt" and "rMATS-DVR_Result_summary.txt".
-"rMATS-DVR_Result.txt" provides the SNV information, read counts, P value, FDR, gene location, and multiple annotations based on known databases. "rMATS-DVR_Result_summary.txt" summarizes the frequencies of all types of total SNVs and DVRs respectively. All other files are temporary files.
+"rMATS-DVR_Result.txt" provides the variant information, read counts, P value, FDR, gene location, and multiple annotations based on known databases. "rMATS-DVR_Result_summary.txt" summarizes the frequencies of all types of total variants and DVRs respectively, they are also substratified into known SNPs, known RNA editing sites, and novel variants. All other files are temporary files.
 
 ###1. rMATS-DVR_Result.txt
 	 Chroms: Chromosome of variant.
@@ -134,7 +134,7 @@ The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMAT
 	 Alt_onSense: alternative allele on sense strand.
 	 Location: location of the variant on gene.
 	 KnownSNP: rs ID of known SNP (dbSNP) hit.
-	 KnownRNAediting: boolean variable to show whether the SNV has a hit in known RNA editing database.
+	 KnownRNAediting: boolean variable to show whether the variant has a hit in known RNA editing database.
 	 RepeatName: name of repeat element which covers the variant.
 	 RepeatName: family of repeat element which covers the variant.
 
