@@ -26,7 +26,7 @@ To decompresse and extract the files: tar -xvf hg19_resource.tar.gz
 
 Alternatively, users can also prepare the external files under the following instructions:
 
-1. Genome and Known SNV (required): we highly recommend the users use the genome sequence (together with a dictionary file such as "ucsc.hg19.dict" and index file such as "ucsc.hg19.fasta.fai") and dbSNP annotation from GTAK bundle, which can be downloaded from https://software.broadinstitute.org/gatk/download/bundle. 
+1. Genome and Known SNPs (required): we highly recommend the users use the genome sequence (together with a dictionary file such as "ucsc.hg19.dict" and index file such as "ucsc.hg19.fasta.fai") and dbSNP annotation from GTAK bundle, which can be downloaded from https://software.broadinstitute.org/gatk/download/bundle. 
 2. Known RNA editing sites (optional): table delimited txt file with the first two columns are chromosome and coordinates. The other columns are ignored. Header is optional. Users can download the file from RADAR dababase (http://rnaedit.com/download/).
 3. Genome-wide repeat elements (optional): RepeatMasker Genomic Datasets downloaded from http://www.repeatmasker.org/genomicDatasets/RMGenomicDatasets.html. For example: hg19.fa.out.gz
 4. Gene annotation: the gene annotaiton is in the UCSC format (optional). We recommend users to download from UCSC. (http://hgdownload.soe.ucsc.edu/downloads.html#human). For example, one can download hg19 RefSeq gene from: http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz
@@ -35,7 +35,7 @@ Alternatively, users can also prepare the external files under the following ins
 ##Run rMATS-DVR in one step.
 
 ###Usage
-In one step mode, rMATS-DVR will first calibrate bam files one by one and then calculate Differential Variants of RNA using all samples.
+In one step mode, rMATS-DVR will first calibrate bam files one by one and then calculate Differential Variants of RNA using all samples. By the way, mapping with STAR is highly recommended.
 
 ```bash
 python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --sample2 S2_rep_1.bam[,S2_rep_2.bam][,...,S2_rep_n.bam] --label S1,S2 --genome hg19.fa --known dbSNP147.vcf --output /Path/to/output/S1_vs_S2 [--editing RADAR2.txt] [--repeat repeats.txt] [--gene RefSeq.txt] [--minQ 20] [--minDP 5] [--thread 1] [--diff 0.0001] [--merge] [--ReadStranded] [--ReadPaired] [--skipBamCalibration] [--KeepTemp]
@@ -142,6 +142,9 @@ The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMAT
 	 Type (Ref-Alt) on sense strand: type of variants in the format of reference allele-alternative allele on sense strand.
 	 All Variants: frequency of each type of all called variants. 
 	 All DVRs (FDR<0.05): frequency of each type of all variants with FDR < 0.05.
+	 SNP DVRs: frequency of each type of all known SNPs with FDR < 0.05.
+	 RNA editing DVRs: frequency of each type of all known RNA editings with FDR < 0.05.
+	 Novel DVRs: frequency of each type of all novel variants with FDR < 0.05.
 
 ##Contacts
 
