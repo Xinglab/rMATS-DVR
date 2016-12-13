@@ -179,7 +179,7 @@ for item in types:
     editing_type[item]=0
     novel_type[item]=0
 
-output.write('\t'.join(['Chrom', 'Site', 'Ref_allele', 'Alt_allele', 'RNA-seqStrand', 'SNV_quality', lab1+'_Alt', lab1+'_Ref', lab2+'_Alt', lab2+'_Ref', 'Pvalue','FDR', lab1+'_Alt_allele_fraction', lab2+'_Alt_allele_fraction', 'Alt_allele_fraction_diff',
+output.write('\t'.join(['Chrom', 'Site', 'Ref_allele', 'Alt_allele', 'RNA-seqStrand', 'Variant_quality', lab1+'_Alt', lab1+'_Ref', lab2+'_Alt', lab2+'_Ref', 'Pvalue','FDR', lab1+'_Alt_allele_fraction', lab2+'_Alt_allele_fraction', 'Alt_allele_fraction_diff',
             'Genename', 'strand', 'Ref_onSense', 'Alt_onSense', 'Location', 'KnownSNV', 'KnownRNAediting', 'RepeatName', 'RepeatFamily'])+'\n')
 for line in open(args.input):
     line=line.rstrip('\n\r')
