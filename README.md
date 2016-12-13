@@ -55,7 +55,7 @@ python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --s
 
 	--genome    <str>       Genome sequence in fasta format
 
-	--known     <str>       Known SNVs in vcf format
+	--known     <str>       Known SNPs in vcf format
 	
 ###Optional Parameters:
 
@@ -65,7 +65,7 @@ python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --s
 	
 	--gene      <str>       Gene annotation
 
-	--minQ      <int>       Minimum SNV quality [20]
+	--minQ      <int>       Minimum variant quality [20]
 	
 	--minDP     <int>       Minimum mean read coverage of both samples [5]
 	
