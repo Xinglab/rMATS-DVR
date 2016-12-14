@@ -1,4 +1,4 @@
-# rMATS-DVR: rMATS calculation of Differential Variants of RNA
+# rMATS-DVR: rMATS discovery of Differential Variants in RNA
 
 ##Requirements
 
