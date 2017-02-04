@@ -85,7 +85,7 @@ python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --s
 	
 
 ##Run rMATS-DVR in two steps.
-When there are a large number of replicates, one step mode, which calibrate bam files one by one,  may take long time. In these cases, we recomend users to run bam calibration for all bam files parallely at the first step. Then the users can run rMATS-DVR.py with --skipBamCalibration.
+When there are a large number of replicates, one step mode, which calibrate bam files one by one,  may take long time. In these cases, we recommend users to run bam calibration for all bam files parallelly at the first step. Then the users can run rMATS-DVR.py with --skipBamCalibration.
 
 Bam calibration
 ```bash
