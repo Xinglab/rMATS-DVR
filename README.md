@@ -163,5 +163,4 @@ Copyright (C) 2016 University of California, Los Angeles (UCLA) Jinkai Wang and 
 
 Authors: Jinkai Wang and Yi Xing
 
-This program is licensed with commercial restriction use license. Please see the attached LICENSE file for details.
 
