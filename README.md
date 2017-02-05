@@ -1,5 +1,10 @@
 # rMATS-DVR: rMATS discovery of Differential Variants in RNA
 
+##Introduction
+
+rMATS-DVR is a convenient and user-friendly program to streamline the discovery of DVRs (Differential Variants in RNA) between two RNA-seq sample groups with replicates. rMATS-DVR combines a stringent GATK-based pipeline for calling SNVs including SNPs and RNA editing events in RNA-seq reads, with our rigorous rMATS statistical model for identifying differential isoform ratios using RNA-seq sequence count data with replicates.
+
+
 ##Requirements
 
 1. Install Python 2.6.x or Python 2.7.x and corresponding versions of NumPy and SciPy. 
@@ -26,10 +31,15 @@ To decompress and extract the files: tar -xvf hg19_resource.tar.gz
 
 Alternatively, users can also prepare the external files under the following instructions:
 
-1. Genome and Known SNPs (required): we highly recommend the users use the genome sequence (together with a dictionary file such as "ucsc.hg19.dict" and index file such as "ucsc.hg19.fasta.fai") and dbSNP annotation from GTAK bundle, which can be downloaded from https://software.broadinstitute.org/gatk/download/bundle. 
-2. Known RNA editing sites (optional): table delimited txt file with the first two columns are chromosome and coordinates. The other columns are ignored. Header is optional. Users can download the file from RADAR dababase (http://rnaedit.com/download/).
-3. Genome-wide repeat elements (optional): RepeatMasker Genomic Datasets downloaded from http://www.repeatmasker.org/genomicDatasets/RMGenomicDatasets.html. For example: hg19.fa.out.gz
-4. Gene annotation: the gene annotation is in the UCSC format (optional). We recommend users to download from UCSC. (http://hgdownload.soe.ucsc.edu/downloads.html#human). For example, one can download hg19 RefSeq gene from: http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz
+1. Genome (required): we highly recommend the users use the genome sequence (together with a dictionary file such as "ucsc.hg19.dict" and index file such as "ucsc.hg19.fasta.fai") from GTAK bundle (https://software.broadinstitute.org/gatk/download/bundle). Alternatively, please follow the instructions in GATK (https://software.broadinstitute.org/gatk/guide/article?id=1204) to prepare the reference genome in proper format.
+
+2. Known SNPs (optional): SNP annotation in VCF format. dbSNP annotation of human can be downloaded from GTAK bundle (https://software.broadinstitute.org/gatk/download/bundle). Alternatively, please follow the instructions in GATK (https://software.broadinstitute.org/gatk/guide/article?id=1204) to prepare the valid VCF file.
+
+3. Known RNA editing sites (optional): table delimited txt file with the first two columns are chromosome and coordinates. The other columns are ignored. Header is optional. Users can download the file from RADAR dababase (http://rnaedit.com/download/).
+
+4. Genome-wide repeat elements (optional): RepeatMasker Genomic Datasets downloaded from http://www.repeatmasker.org/genomicDatasets/RMGenomicDatasets.html. For example: hg19.fa.out.gz
+
+5. Gene annotation (optional): the gene annotation is in the GenePred (extended) format (see https://genome.ucsc.edu/FAQ/FAQformat.html for detail). We recommend users to download it from UCSC. (http://hgdownload.soe.ucsc.edu/downloads.html ). For example, one can download hg19 RefSeq gene from: http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz 
 
 
 ##Run rMATS-DVR in one step.
@@ -38,7 +48,7 @@ Alternatively, users can also prepare the external files under the following ins
 In one step mode, rMATS-DVR will first calibrate bam files one by one and then calculate Differential Variants of RNA using all samples. By the way, mapping with STAR is highly recommended.
 
 ```bash
-python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --sample2 S2_rep_1.bam[,S2_rep_2.bam][,...,S2_rep_n.bam] --label S1,S2 --genome hg19.fa --known dbSNP147.vcf --output /Path/to/output/S1_vs_S2 [--editing RADAR2.txt] [--repeat repeats.txt] [--gene RefSeq.txt] [--minQ 20] [--minDP 5] [--thread 1] [--diff 0.0001] [--merge] [--ReadStranded] [--ReadPaired] [--skipBamCalibration] [--KeepTemp]
+python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --sample2 S2_rep_1.bam[,S2_rep_2.bam][,...,S2_rep_n.bam] --label S1,S2 --genome hg19.fa --output /Path/to/output/S1_vs_S2 [--known dbSNP147.vcf] [--editing RADAR2.txt] [--repeat repeats.txt] [--gene RefSeq.txt] [--minQ 20] [--minDP 5] [--thread 1] [--diff 0.0001] [--merge] [--ReadStranded] [--ReadPaired] [--skipBamCalibration] [--KeepTemp]
 ```
 
 ###Required Parameters:
@@ -55,12 +65,13 @@ python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --s
 
 	--genome    <str>       Genome sequence in fasta format
 
-	--known     <str>       Known SNPs in vcf format
 	
 ###Optional Parameters:
 
+	--known     <str>       Known SNPs in VCF format
+
 	--editing   <str>       Known RNA editing sites
-	
+
 	--repeat    <str>       Repeat elements annotation
 	
 	--gene      <str>       Gene annotation
@@ -89,7 +100,7 @@ When there are a large number of replicates, one step mode, which calibrate bam 
 
 Bam calibration
 ```bash
-python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg19.fa --known dbSNP147.vcf [--KeepTemp]
+python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --genome hg19.fa [--known dbSNP147.vcf] [--KeepTemp]
 ```	
 
 ###Parameters:
@@ -102,7 +113,7 @@ python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --gen
 
 	--genome    <str>       Genome sequence in fasta format
 
-	--known     <str>       Known SNPs in vcf format
+	--known     <str>       [Optional] Known SNPs in VCF format
 	
 	--KeepTemp              [Optional] Keep the temporary files. Disable by default.
 
