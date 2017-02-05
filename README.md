@@ -129,7 +129,7 @@ The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMAT
 	 Sample2_Alt_allele_fraction: fraction of alternative allele counts in sample 2, replicates are separated by comma.
 	 Alt_allele_fraction_diff: average (Sample1_Alt_allele_fraction) - average (Sample2_Alt_allele_fraction).
 	 Genename: name of the gene in which the variant is located.
-	 strand: strand of the gene.
+	 Strand: strand of the gene.
 	 Ref_onSense: reference allele on sense strand.
 	 Alt_onSense: alternative allele on sense strand.
 	 Location: location of the variant on gene.
