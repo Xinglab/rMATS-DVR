@@ -157,6 +157,12 @@ The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMAT
 	 RNA editing DVRs: frequency of each type of all known RNA editings with FDR < 0.05.
 	 Novel DVRs: frequency of each type of all novel variants with FDR < 0.05.
 
+
+##Run with the least input 
+
+For species without SNP or transcript annotation, users can run rMATS-DVR with only the RNA-seq alignments and the corresponding genome. In that case, rMAT-DVR still report the variant information and DVR information (column 1-15) in rMATS-DVR_Result.txt. It is also helpful to provide a de novo transcript assembly in GenePred (extended) format as previously described. 
+
+
 ##Contacts
 
 Yi Xing yxing@ucla.edu
