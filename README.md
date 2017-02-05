@@ -22,7 +22,7 @@
 ##Required and optional external files:
 
 All the external files based on human hg19 genome can be downloaded from http://www.mimg.ucla.edu/faculty/xing/public_data/rMATS-DVR/hg19_resource.tar.gz <br>
-To decompresse and extract the files: tar -xvf hg19_resource.tar.gz
+To decompress and extract the files: tar -xvf hg19_resource.tar.gz
 
 Alternatively, users can also prepare the external files under the following instructions:
 
