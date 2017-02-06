@@ -15,7 +15,7 @@ parser.add_argument('--output',help='Output file')
 parser.add_argument('--summary',help='Results summary file')
 parser.add_argument('--label1',help='Label of sample 1')
 parser.add_argument('--label2',help='Label of sample 2')
-parser.add_argument('--snp',help='Known SNVs in vcf format')
+parser.add_argument('--snp', default='NA', help='Known SNVs in vcf format')
 parser.add_argument('--repeat', default='NA', help='Repeat annotation')
 parser.add_argument('--editing', default='NA', help='Known RNA editing sites')
 parser.add_argument('--gene', default='NA', help='Gene annotation in gtf format')
@@ -24,6 +24,7 @@ args = parser.parse_args()
 repeatmask=args.repeat
 knownediting=args.editing
 geneanno=args.gene
+snp=args.snp
 
 lab1=args.label1
 lab2=args.label2
@@ -112,18 +113,19 @@ for line in open(args.input):
 print 'All sites loaded'
 
 dbsnp={}
-for line in open(args.snp):
-    line=line.rstrip('\n\r')
-    if (line[0]=='#'):
-        continue
-    a=line.split('\t')
-    chrom=a[0]
-    site=a[1]
-    if (allsites.has_key(chrom+':'+site)):
-        rs=a[2]
-        ref=a[3]
-        alt=a[4]
-        dbsnp[chrom+':'+site]=[rs, ref, alt]
+if (snp!='NA'):
+            for line in open(args.snp):
+                line=line.rstrip('\n\r')
+                if (line[0]=='#'):
+                    continue
+                a=line.split('\t')
+                chrom=a[0]
+                site=a[1]
+                if (allsites.has_key(chrom+':'+site)):
+                    rs=a[2]
+                    ref=a[3]
+                    alt=a[4]
+                    dbsnp[chrom+':'+site]=[rs, ref, alt]
     
 print 'dbSNP loaded'
 
@@ -180,7 +182,7 @@ for item in types:
     novel_type[item]=0
 
 output.write('\t'.join(['Chrom', 'Site', 'Ref_allele', 'Alt_allele', 'RNA-seqStrand', 'Variant_quality', lab1+'_Alt', lab1+'_Ref', lab2+'_Alt', lab2+'_Ref', 'Pvalue','FDR', lab1+'_Alt_allele_fraction', lab2+'_Alt_allele_fraction', 'Alt_allele_fraction_diff',
-            'Genename', 'strand', 'Ref_onSense', 'Alt_onSense', 'Location', 'KnownSNV', 'KnownRNAediting', 'RepeatName', 'RepeatFamily'])+'\n')
+            'Genename', 'Strand', 'Ref_onSense', 'Alt_onSense', 'Location', 'KnownSNV', 'KnownRNAediting', 'RepeatName', 'RepeatFamily'])+'\n')
 for line in open(args.input):
     line=line.rstrip('\n\r')
     a=line.split('\t')

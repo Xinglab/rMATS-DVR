@@ -9,10 +9,10 @@ parser.add_argument('--sample1',help='Bam files of sample 1, replicates are sepa
 parser.add_argument('--sample2',help='Bam files of sample 2, replicates are separated by comma')
 parser.add_argument('--label',help='Lable of sample 1 and sample 2, separated by comma, e.g. Sample1,Sample2')
 parser.add_argument('--genome',help='Genome sequence in fasta format')
-parser.add_argument('--known',help='Known SNVs in vcf format')
+parser.add_argument('--known', default='NA', help='Known SNVs in vcf format')
 parser.add_argument('--repeat', default='NA', help='Repeat elements annotation')
 parser.add_argument('--editing', default='NA', help='Known RNA editing sites')
-parser.add_argument('--gene', default='NA', help='Gene annotatione')
+parser.add_argument('--gene', default='NA', help='Gene annotation')
 parser.add_argument('--output',help='Path and prefix of output file')
 parser.add_argument('--minQ', default='20', help='Minimum SNV quality [20]')
 parser.add_argument('--minDP', default='5', help='Minimum mean read coverage of both samples [5]')
@@ -88,7 +88,11 @@ if (not skip):
         os.system(com)
     allsample=' -I '.join(allsample)
 
-com1='java -jar '+directory+'GenomeAnalysisTK.jar -T UnifiedGenotyper -R '+genome+' -I '+allsample+'  --dbsnp '+known+' -o '+output+'.vcf -stand_call_conf 0 -stand_emit_conf 0 --genotyping_mode DISCOVERY -nt '+thread
+if (known!='NA'):
+    com1='java -jar '+directory+'GenomeAnalysisTK.jar -T UnifiedGenotyper -R '+genome+' -I '+allsample+'  --dbsnp '+known+' -o '+output+'.vcf -stand_call_conf 0 -stand_emit_conf 0 --genotyping_mode DISCOVERY -nt '+thread
+else:
+    com1='java -jar '+directory+'GenomeAnalysisTK.jar -T UnifiedGenotyper -R '+genome+' -I '+allsample+' -o '+output+'.vcf -stand_call_conf 0 -stand_emit_conf 0 --genotyping_mode DISCOVERY -nt '+thread
+
 logging.debug('Running command 1: '+com1+'\n')
 os.system(com1)
 
@@ -121,7 +125,6 @@ else:
     com3='python '+directory+'MATS_LRT.py '+output+'.inc.txt '+output+'_rMATS-DVR_results '+thread+' '+diff
 com4='python '+directory+'FDR.py '+output+'_rMATS-DVR_results/rMATS_Result_P.txt '+output+'_rMATS-DVR_results/rMATS_Result_FDR.txt'
 com5='python '+directory+'snv_annotation.py --input '+output+'_rMATS-DVR_results/rMATS_Result_FDR.txt --output '+output+'_rMATS-DVR_results/rMATS-DVR_Result.txt --summary '+output+'_rMATS-DVR_results/rMATS-DVR_Result_summary.txt --label1 '+lab1+' --label2 '+lab2+' --snp '+known+' --repeat '+repeatmask+' --editing '+knownediting+' --gene '+geneanno
-
 
 logging.debug('Running command 2: '+com2+'\n')
 os.system(com2)

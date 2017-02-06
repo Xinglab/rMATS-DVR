@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(description='Bam calibration for rMATS-DVR')
 parser.add_argument('--bam',help='Input bam file')
 parser.add_argument('--output',help='Path and prefix of the output file')
 parser.add_argument('--genome',help='genome sequence in fasta format')
-parser.add_argument('--known',help='Known SNVs in vcf format')
+parser.add_argument('--known', default='NA', help='Known SNVs in vcf format')
 parser.add_argument('--KeepTemp', action='store_true', help='Keep tempory files. Disable by default.')
 
 args = parser.parse_args()
@@ -37,7 +37,10 @@ com3='java -Xmx4g -jar '+directory+'picard.jar MarkDuplicates INPUT='+label+'_ad
 com5='java -Xmx4g -jar '+directory+'GenomeAnalysisTK.jar -T SplitNCigarReads -R '+genome+' -I '+label+'_dedup.bam -o '+label+'_split.bam -rf ReassignOneMappingQuality -RMQF 255 -RMQT 60 -U ALLOW_N_CIGAR_READS'
 
 # Base Quality Score Recalibration
-com6='java -Xmx4g -jar '+directory+'GenomeAnalysisTK.jar -T BaseRecalibrator -I '+label+'_split.bam -R '+genome+' -o '+label+'_recalibration_report.grp -knownSites '+known
+if (known!='NA'):
+    com6='java -Xmx4g -jar '+directory+'GenomeAnalysisTK.jar -T BaseRecalibrator -I '+label+'_split.bam -R '+genome+' -o '+label+'_recalibration_report.grp -knownSites '+known
+else:
+    com6='java -Xmx4g -jar '+directory+'GenomeAnalysisTK.jar -T BaseRecalibrator -I '+label+'_split.bam -R '+genome+' -o '+label+'_recalibration_report.grp --run_without_dbsnp_potentially_ruining_quality'
 
 com7='java -Xmx4g -jar '+directory+'GenomeAnalysisTK.jar -T PrintReads -R '+genome+' -I '+label+'_split.bam -BQSR '+label+'_recalibration_report.grp -o '+label+'_recalibration.bam -U ALLOW_N_CIGAR_READS'
 
