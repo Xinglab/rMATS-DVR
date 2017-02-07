@@ -11,7 +11,7 @@ rMATS-DVR is a convenient and user-friendly program to streamline the discovery 
 2. Install Java v1.8 (https://java.com/en/download/manual.jsp#lin).
 3. Add the Python and the Java directories to the $PATH environment variable.
 4. Download Picard v2.6.0 from https://github.com/broadinstitute/picard/releases/tag/2.6.0.
-5. Download GATK v3.6 from https://software.broadinstitute.org/gatk/download/.
+5. Download GATK v3.6 from https://software.broadinstitute.org/gatk/download/.<br>
 6. Download SAMtools v1.3.1 (https://github.com/samtools/samtools/releases/tag/1.3.1) and add it to $PATH environment variable.
 
  Note: We have only tested rMATS-DVR in the linux platform.
