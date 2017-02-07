@@ -41,9 +41,9 @@ Alternatively, users can also prepare the external files under the following ins
 
 1) Genome (required): we highly recommend the users use the genome sequence (together with a dictionary file such as "ucsc.hg19.dict" and index file such as "ucsc.hg19.fasta.fai") from the GTAK bundle (https://software.broadinstitute.org/gatk/download/bundle). Alternatively, please follow the instructions in GATK (https://software.broadinstitute.org/gatk/guide/article?id=1204) to prepare the reference genome in the proper format.
 
-2) Known SNPs (optional): SNP annotation in the VCF format. The dbSNP annotation of human can be downloaded from the GTAK bundle (https://software.broadinstitute.org/gatk/download/bundle). Alternatively, please follow the instructions in GATK (https://software.broadinstitute.org/gatk/guide/article?id=1204) to prepare the valid VCF file.
+2) Known SNPs (optional but highly recommended): SNP annotation in the VCF format. The dbSNP annotation of human can be downloaded from the GTAK bundle (https://software.broadinstitute.org/gatk/download/bundle). Alternatively, please follow the instructions in GATK (https://software.broadinstitute.org/gatk/guide/article?id=1204) to prepare the valid VCF file.
 
-3) Known RNA editing sites (optional): table delimited txt file with the first two columns are chromosome and coordinates. The other columns are ignored. Header is optional. Users can download the file from the RADAR dababase (http://rnaedit.com/download/).
+3) Known RNA editing sites (optional): table delimited txt file with the first two columns as chromosomes and coordinates. The other columns are ignored. Header is optional. Users can download the file from the RADAR dababase (http://rnaedit.com/download/).
 
 4) Genome-wide repeat elements (optional): RepeatMasker Genomic Datasets downloaded from http://www.repeatmasker.org/genomicDatasets/RMGenomicDatasets.html.  For example, hg19.fa.out.gz.
 
@@ -52,7 +52,7 @@ Alternatively, users can also prepare the external files under the following ins
 ##Run rMATS-DVR in one step.
 
 ###Usage
-In the one step mode, rMATS-DVR will first calibrate the bam files one by one and then calculate the Differential Variants of RNA using all samples. By the way, mapping with STAR is highly recommended.
+In the one step mode, rMATS-DVR will first calibrate the bam files one by one and then calculate the Differential Variants of RNA using all samples. Mapping with STAR is highly recommended.
 
 ```bash
 python rMATS-DVR.py --sample1 S1_rep_1.bam[,S1_rep_2.bam][,...,S1_rep_n.bam] --sample2 S2_rep_1.bam[,S2_rep_2.bam][,...,S2_rep_n.bam] --label S1,S2 --genome hg19.fa --output /Path/to/output/S1_vs_S2 [--known dbSNP147.vcf] [--editing RADAR2.txt] [--repeat repeats.txt] [--gene RefSeq.txt] [--minQ 20] [--minDP 5] [--thread 1] [--diff 0.0001] [--merge] [--ReadStranded] [--ReadPaired] [--skipBamCalibration] [--KeepTemp]
@@ -128,7 +128,7 @@ python bam_calibration.py --bam sample.bam --output /Path/to/output/prefix --gen
 ## Output
 
 The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMATS-DVR_Result.txt" and "rMATS-DVR_Result_summary.txt".
-"rMATS-DVR_Result.txt" provides the variant information, read counts, P value, FDR, gene location, and multiple annotations based on the known databases. "rMATS-DVR_Result_summary.txt" summarizes the frequencies of all types of total variants and DVRs respectively, they are also substratified into known SNPs, known RNA editing sites, and novel variants. All other files are temporary files.
+"rMATS-DVR_Result.txt" provides the variant information, read counts, P value, FDR, gene location, and multiple annotations based on the known databases. "rMATS-DVR_Result_summary.txt" summarizes the frequencies of all types of total variants and DVRs respectively, substratified into known SNPs, known RNA editing sites, and novel variants. All other files are temporary files.
 
 ###1. rMATS-DVR_Result.txt
 	Chroms: Chromosome of variant.
