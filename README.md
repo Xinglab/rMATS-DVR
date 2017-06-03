@@ -131,38 +131,68 @@ The final output files are in "Prefix_rMATS-DVR_results" folder, including "rMAT
 "rMATS-DVR_Result.txt" provides the variant information, read counts, P value, FDR, gene location, and multiple annotations based on the known databases. "rMATS-DVR_Result_summary.txt" summarizes the frequencies of all types of total variants and DVRs respectively, substratified into known SNPs, known RNA editing sites, and novel variants. All other files are temporary files.
 
 ###1. rMATS-DVR_Result.txt
+
 	Chroms: Chromosome of variant.
+	
 	Site: 1-based coordinates of variant.
+	
 	Ref_allele: reference allele.
+	
 	Alt_allele: alternative allele.
+	
 	RNA-seqStrand: RNA strand from which the RNA-seq reads are originated. Only valid when --ReadStranded is applied in rMATS-DVR.
+	
 	Variant_quality: GATK reported Phred-scaled quality score of the variant. 
+	
 	Sample1_Alt: read counts of the alternative allele in sample 1, replicates are separated by comma.
+	
 	Sample1_Ref: read counts of the reference allele in sample 1, replicates are separated by comma.
+	
 	Sample2_Alt: read counts of the alternative allele in sample 2, replicates are separated by comma.
+	
 	Sample2_Ref: read counts of the reference allele in sample 2, replicates are separated by comma.
+	
 	Pvalue: P value of differential allelic count ratios between the two sample groups.
+	
 	FDR: Benjamini-Hochberg corrected FDR of the above P value.
+	
 	Sample1_Alt_allele_fraction: fraction of the alternative allele counts in sample 1, replicates are separated by comma.
+	
 	Sample2_Alt_allele_fraction: fraction of the alternative allele counts in sample 2, replicates are separated by comma.
+	
 	Alt_allele_fraction_diff: average (Sample1_Alt_allele_fraction) - average (Sample2_Alt_allele_fraction).
+	
 	Genename: name of the gene in which the variant is located.
+	
 	Strand: strand of the gene.
+	
 	Ref_onSense: reference allele on the sense strand.
+	
 	Alt_onSense: alternative allele on the sense strand.
+	
 	Location: location of the variant on gene.
+	
 	KnownSNP: rs ID of the known SNP (dbSNP) hit.
+	
 	KnownRNAediting: boolean variable to show whether the variant has a hit in the known RNA editing database.
+	
 	RepeatName: name of repeat element which covers the variant.
+	
 	RepeatName: family of repeat element which covers the variant.
 
 
 ###2. rMATS-DVR_Result_summary.txt
+
 	Type (Ref-Alt) on sense strand: type of variants in the format of reference allele-alternative allele on the sense strand.
+	
 	All Variants: frequency of each type of all called variants. 
+	
 	All DVRs (FDR<0.05): frequency of each type of all variants with FDR < 0.05.
+	
 	SNP DVRs: frequency of each type of all known SNPs with FDR < 0.05.
+	
 	RNA editing DVRs: frequency of each type of all known RNA editings with FDR < 0.05.
+	
 	Novel DVRs: frequency of each type of all novel variants with FDR < 0.05.
 
 
