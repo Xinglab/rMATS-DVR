@@ -32,7 +32,7 @@ rMATS-DVR is a convenient and user-friendly program to streamline the discovery 
 
 ##Required and optional external files:
 
-All the external files based on human hg19 genome can be downloaded from http://www.mimg.ucla.edu/faculty/xing/public_data/rMATS-DVR/hg19_resource.tar.gz.
+All the external files based on human hg19 genome can be downloaded from https://mailsysueducn-my.sharepoint.com/:u:/g/personal/wangjk_mail_sysu_edu_cn/EWw1yO2_7ChPkcVJkklNYNUBv5X6CzfATRylq-uHk8gBhQ?e=fSL4Rz.
 
 To decompress and extract the files: 
 		tar -xvf hg19_resource.tar.gz
@@ -205,7 +205,7 @@ For species without SNP or transcript annotation, users can run rMATS-DVR with o
 
 Yi Xing: yxing@ucla.edu
 
-Jinkai Wang: jinkwang@ucla.edu
+Jinkai Wang: wangjk@mail.sysu.edu.cn
 
 If you find a bug or mistake in this project, we would like to know about it. Before you send us the bug report, please check the following:
 
