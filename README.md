@@ -213,6 +213,11 @@ Are you using the latest version? The bug you find may have already been fixed.
 Check that your inputs are in the correct formats and you have selected the correct options.
 Please reduce your input to the smallest possible size that still produces the bug; we will need your input data to reproduce the problem, and the smaller you can make it, the easier it will be.
 
+##How to cite?
+
+Wang, J., Pan, Y., Shen, S., Lin, L., & Xing, Y. (2017). rMATS-DVR: rMATS discovery of differential variants in RNA. Bioinformatics, 33(14), 2216–2217. http://doi.org/10.1093/bioinformatics/btx128
+
+
 ##Copyright and License Information
 
 Copyright (C) 2016 University of California, Los Angeles (UCLA) Jinkai Wang and Yi Xing
